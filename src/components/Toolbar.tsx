@@ -170,9 +170,74 @@ export default function Toolbar({
             </button>
           </div>
 
-          {/* Size controls — desktop only */}
+          {/* Size controls — hover-reveal on small screens */}
           {tool === "draw" && (
-            <div className="hidden sm:flex items-center gap-1 glass-panel rounded-full px-3 h-12 animate-fade-in">
+            <div className="tool-group relative animate-fade-in md:hidden">
+              <div className="hover-bridge" />
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 glass-panel rounded-full p-2 tool-reveal">
+                <div className="flex flex-col gap-1.5">
+                  {BRUSH_SIZES.map((s) => (
+                    <button
+                      key={s}
+                      onClick={() => setBrushSize(s)}
+                      className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                      style={{
+                        background: brushSize === s ? "rgba(184, 195, 255, 0.08)" : "transparent",
+                        color: brushSize === s ? "var(--primary)" : "var(--outline)",
+                      }}
+                      title={`Size ${s}`}
+                    >
+                      <span className="rounded-full bg-current" style={{ width: Math.min(s + 1, 14), height: Math.min(s + 1, 14) }} />
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <button
+                className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                style={{ background: "var(--surface-container-high)" }}
+                title="Brush Size"
+              >
+                <span className="rounded-full" style={{ width: Math.min(brushSize + 1, 14), height: Math.min(brushSize + 1, 14), backgroundColor: "var(--on-surface)" }} />
+              </button>
+            </div>
+          )}
+          {tool === "text" && (
+            <div className="tool-group relative animate-fade-in md:hidden">
+              <div className="hover-bridge" />
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 glass-panel rounded-full p-2 tool-reveal">
+                <div className="flex flex-col gap-1.5">
+                  {[16, 24, 36, 48].map((s) => (
+                    <button
+                      key={s}
+                      onClick={() => setFontSize(s)}
+                      className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                      style={{
+                        background: fontSize === s ? "rgba(184, 195, 255, 0.08)" : "transparent",
+                        color: fontSize === s ? "var(--primary)" : "var(--outline)",
+                        fontSize: "9px",
+                        fontWeight: 600,
+                        letterSpacing: "0.05em",
+                      }}
+                      title={`${s}px`}
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <button
+                className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                style={{ background: "var(--surface-container-high)", color: "var(--on-surface)", fontSize: "9px", fontWeight: 600, letterSpacing: "0.05em" }}
+                title="Font Size"
+              >
+                {fontSize}
+              </button>
+            </div>
+          )}
+
+          {/* Size controls — inline strip on sm+ screens */}
+          {tool === "draw" && (
+            <div className="hidden md:flex items-center gap-1 glass-panel rounded-full px-3 h-12 animate-fade-in">
               {BRUSH_SIZES.map((s) => (
                 <button
                   key={s}
@@ -190,7 +255,7 @@ export default function Toolbar({
             </div>
           )}
           {tool === "text" && (
-            <div className="hidden sm:flex items-center gap-1 glass-panel rounded-full px-3 h-12 animate-fade-in">
+            <div className="hidden md:flex items-center gap-1 glass-panel rounded-full px-3 h-12 animate-fade-in">
               {[16, 24, 36, 48].map((s) => (
                 <button
                   key={s}
@@ -211,11 +276,11 @@ export default function Toolbar({
             </div>
           )}
 
-          {/* Divider — desktop only */}
-          <div className="hidden sm:block h-4 w-px opacity-10" style={{ background: "var(--on-surface)" }} />
+          {/* Divider — large screens only */}
+          <div className="hidden lg:block h-4 w-px opacity-10" style={{ background: "var(--on-surface)" }} />
 
-          {/* Presence pulse — desktop only */}
-          <div className="hidden sm:flex glass-panel h-12 px-5 rounded-full items-center gap-4">
+          {/* Presence pulse — large screens only */}
+          <div className="hidden lg:flex glass-panel h-12 px-5 rounded-full items-center gap-4">
             <span
               className="w-2 h-2 rounded-full animate-pulse"
               style={{ background: "var(--primary)", boxShadow: "0 0 8px var(--primary)" }}
