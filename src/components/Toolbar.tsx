@@ -295,9 +295,8 @@ export default function Toolbar({
         <div className="glass-panel h-10 sm:h-12 px-4 sm:px-8 rounded-full flex items-center gap-3 sm:gap-8">
           {/* Session timer */}
           <div className="text-right">
-            <div className="text-[8px] uppercase tracking-[0.2em]" style={{ color: "var(--outline)" }}>Uptime</div>
+            <div className="text-[8px] uppercase tracking-[0.2em]" style={{ color: "var(--outline)" }}>Age</div>
             <div className="text-[10px] tracking-[0.15em] flex items-center gap-1.5 justify-end tabular-nums" style={{ color: "var(--on-surface)" }}>
-              <span className="w-1 h-1 rounded-full animate-pulse" style={{ background: "var(--primary)" }} />
               {uptime}
             </div>
           </div>

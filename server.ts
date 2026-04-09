@@ -25,7 +25,7 @@ app.prepare().then(() => {
 
   registerSocketHandlers(io, {
     connectedUsers: 0,
-    serverStartedAt: Date.now(),
+    serverStartedAt: new Date(2026,3,8,22,27,17).getTime(),
   });
 
   httpServer.listen(port, () => {
